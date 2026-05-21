@@ -1,3 +1,14 @@
+const gifStages = [
+     "https://media1.tenor.com/m/MKkJWYigjycAAAAC/cute-cat-cat-cute.gif",    // 0 normal
+    "https://media1.tenor.com/m/ZsGv52SY0OAAAAAC/zuh-cat.gif",  // 1 confused
+    "https://media1.tenor.com/m/YWRLnlD8TxIAAAAC/cat-please.gif",             // 2 pleading
+    "https://media1.tenor.com/m/67hJkk5s-H4AAAAC/crying-crying-cat.gif",             // 3 sad
+    "https://media1.tenor.com/m/I6WG5aQzlWcAAAAC/very-sad-cat-sad-cat.gif",       // 4 sadder
+    "https://media1.tenor.com/m/0QkZnCmGFX0AAAAC/banana-cat-banana-cat-crying.gif",             // 5 devastated
+    "https://media1.tenor.com/m/oObwAjW2IIoAAAAd/cat-cute-cat.gif",               // 6 very devastated
+    "https://media1.tenor.com/m/oObwAjW2IIoAAAAd/cat-cute-cat.gif"  // 7 crying runaway
+]
+
 const noMessages = [
     "No",
     "Pag Sure Ba 🤔",
@@ -19,6 +30,7 @@ let yesTeasedCount = 0
 let noClickCount = 0
 let runawayEnabled = false
 
+const catGif = document.getElementById('cat-gif')
 const yesBtn = document.getElementById('yes-btn')
 const noBtn = document.getElementById('no-btn')
 
@@ -58,10 +70,21 @@ function handleNoClick() {
         noBtn.style.fontSize = `${Math.max(noSize * 0.85, 10)}px`
     }
 
+    const gifIndex = Math.min(noClickCount, gifStages.length - 1)
+    swapGif(gifStages[gifIndex])
+
     if (noClickCount >= 5 && !runawayEnabled) {
         enableRunaway()
         runawayEnabled = true
     }
+}
+
+function swapGif(src) {
+    catGif.style.opacity = '0'
+    setTimeout(() => {
+        catGif.src = src
+        catGif.style.opacity = '1'
+    }, 200)
 }
 
 function enableRunaway() {
